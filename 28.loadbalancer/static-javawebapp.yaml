@@ -1,0 +1,43 @@
+#gcloud compute addresses create helloweb-ip --global
+#gcloud compute addresses describe helloweb-ip --global
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: javawebappdeployment
+spec:
+  replicas: 2
+  revisionHistoryLimit: 10
+  # strategy:
+  #   type: Recrete
+  selector:
+    matchLabels:
+      app: javawebapp
+  template:
+    metadata:
+      name: javawebapppod
+      labels:
+        app: javawebapp
+    spec: 
+      containers:
+      - name: javawebcontainer
+        image: dockerhandson/java-web-app:1
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: javawebapp-svc
+  annotations:
+    cloud.google.com/load-balancer-type: "external"
+    networking.gke.io/internal-load-balancer-allow-global-access: "true"
+    networking.gke.io/load-balancer-type: "external"
+    beta.cloud.google.com/app-protocols: '{"https":"HTTP2"}'
+spec:
+  type: LoadBalancer
+  loadBalancerIP: "34.160.227.243"
+  selector:
+    app: javawebapp
+  ports:
+  - port: 80 #serviceport
+    targetPort: 8080 #containerport

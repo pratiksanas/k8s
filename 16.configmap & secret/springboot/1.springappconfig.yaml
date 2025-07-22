@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: springappconfig
+data:
+  mongodbusername: devdb
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: springappsecret 
+type: Opaque
+stringData:
+  mongodbpassword: devdb@123 

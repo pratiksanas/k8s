@@ -1,0 +1,23 @@
+kind : ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata: 
+  namespace: default
+  name: admin
+rules:
+- apiGroups: ["*"] #v1
+  resources: ["*"]
+  verbs: ["*"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: full_access_cluster_role_binding
+  namespace: default
+subjects:
+- kind: User
+  name: Mithun
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: CluserRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

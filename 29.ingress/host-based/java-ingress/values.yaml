@@ -1,0 +1,14 @@
+replicaCount: 1
+
+image:
+  repository: dockerhandson/java-web-app
+  pullPolicy: IfNotPresent
+  tag: "1"
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 8080
+
+ingress:
+  host: sampleweb.in

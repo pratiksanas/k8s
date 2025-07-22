@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress 
+metadata:
+  name: ingress-resource-1
+  # annotations:
+  #   kubernetes.io/ingress.class: "gce"
+  #   kubernetes.io/ingress.allow-http: "true"
+  #   kubernetes.io/ingress.global-static-ip-name: "load-eip"
+spec:
+  rules:
+  - host: mithuntechdevops.co.in
+    http:
+      paths:
+      - path: /maven-web-application
+        pathType: Prefix
+        backend: 
+          service:
+            name: mavenwebappsvc
+            port:
+              number: 80
+      - path: /java-web-application
+        pathType: Prefix
+        backend:
+          service:
+            name: javawebappsvc
+            port:
+              number: 80

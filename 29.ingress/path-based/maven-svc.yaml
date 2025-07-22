@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: mavenwebapppod
+  labels:
+    app: mavenwebapp
+spec:
+  containers:
+    - name: mavenwebappcontainer
+      image: dockerhandson/maven-web-application:1
+      ports:
+      - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mavenwebappsvc
+spec:
+  type: LoadBalancer
+  selector:
+    app: mavenwebapp
+  ports:
+  - port: 80 #serviceport
+    targetPort: 8080 #containerport
