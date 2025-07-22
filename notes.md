@@ -113,8 +113,9 @@ Cronjob
 labels & selectors:
 - lables are key value pairs attached to object
 - If one thing in k8s, to find another thing in k8s it uses labels
-
+```
 kubectl get pods --selector tier=frontend
+```
 ------------------------------------------------------------------------------------------
 Init containers:
 - Init Containers are special containers that run before the main application container(s) start in a Pod.
@@ -163,9 +164,10 @@ request memory = 100
 limit memory = 200
 stress =250
 --> out of memory error
-The pod is scheduled to a node with at least 100Mi free memory (because that’s the request).
-At runtime, the pod tries to use 250Mi, which exceeds the limit of 200Mi.
-The container is killed by the kernel (OOMKilled) due to exceeding its memory limit.
+
+- The pod is scheduled to a node with at least 100Mi free memory (because that’s the request).
+- At runtime, the pod tries to use 250Mi, which exceeds the limit of 200Mi.
+- The container is killed by the kernel (OOMKilled) due to exceeding its memory limit.
 
 2. Case 2
 request memory = 1000
@@ -173,9 +175,9 @@ limit memory = 2000
 stress =250
 --> insufficient memory
 
-The pod asks for 1000Mi of memory up front (this is the request).
-Kubernetes tries to schedule it on a node with at least 1000Mi available.
-If no node has 1000Mi free, scheduling fails with:
+- The pod asks for 1000Mi of memory up front (this is the request).
+- Kubernetes tries to schedule it on a node with at least 1000Mi available.
+- If no node has 1000Mi free, scheduling fails with:
 ---------------------------------------------------------------------------------------------------------------------------
 HPA:
 - What it does: Scales the number of pods.
@@ -218,9 +220,9 @@ RBAC :
 - RBAC : Roll back access control of k8s
 
 How to manage access of k8s resources?
->> We can manage access of k8s resource using RBAC.
-Authentication : Checking the identity of user (IAM)
-Authorization : Checking the permission of user (RBAC)
+- We can manage access of k8s resource using RBAC.
+- Authentication : Checking the identity of user (IAM)
+- Authorization : Checking the permission of user (RBAC)
 
 3 types of user who can access the k8s :
 1. developer
@@ -228,14 +230,14 @@ Authorization : Checking the permission of user (RBAC)
 3. end user
 
 Differece betn Roles & cluster role:
-Roles are attached at namespace level & cluster roles has not barrier of namespace.
+- Roles are attached at namespace level & cluster roles has not barrier of namespace.
 
 Service account :
-Each pod runs as a user (identity) when it interacts with the Kubernetes API. This identity is provided by a ServiceAccount.
-By default, pods use the default ServiceAccount in their namespace.
-But for fine-grained access control, we create and use custom ServiceAccounts.
+- Each pod runs as a user (identity) when it interacts with the Kubernetes API. This identity is provided by a ServiceAccount.
+- By default, pods use the default ServiceAccount in their namespace.
+- But for fine-grained access control, we create and use custom ServiceAccounts.
 
 - Reference doc : https://faun.pub/how-to-integrate-kubernetes-on-aws-eks-with-jenkins-the-devsecops-way-36d72407f302
 ----------------------------------------------------------------------------------
 Service Discovery:
-Service Discovery in Kubernetes (K8s) refers to the automatic detection of services within a Kubernetes cluster. It allows different components (like pods, deployments, etc.) to communicate with each other without manually managing IP addresses or port numbers.
+- Service Discovery in Kubernetes (K8s) refers to the automatic detection of services within a Kubernetes cluster. It allows different components (like pods, deployments, etc.) to communicate with each other without manually managing IP addresses or port numbers.
