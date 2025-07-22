@@ -59,9 +59,9 @@ Deployment strategy
 2. Rolling update (default)
 - Create a new pod first first, once it is ready delete the old one.
 
-maxSurge : how many new versions pod will be created
-maxUnavailable : how many pods are unavailable
-minReadySeconds : Pod will be created within how many seconds.
+- maxSurge : how many new versions pod will be created
+- maxUnavailable : how many pods are unavailable
+- minReadySeconds : Pod will be created within how many seconds.
 ------------------------------------------------------------------------------------------
 Daemonset:
 - We can not autoscale the daemonset
@@ -78,7 +78,7 @@ Used for:
 Statefulset:
 used for stateful app
 create a pod 1st,2nd & then 3rd
-
+```
 rs.initiate({
   _id: "MainRepSet",
   members: [
@@ -87,15 +87,18 @@ rs.initiate({
     { _id: 2, host: "mongod-2.mongodb-service.default.svc.cluster.local:27017" }
   ]
 });
-
+```
 # create a username & password
+```
 db.getSiblingDB("admin").createUser({
   user: "devdb",
   pwd: "devdb123",
   roles: [{ role: "root", db: "admin" }]
 });
-
+```
+```
 rs.status()
+```
 ------------------------------------------------------------------------------------------
 Job : 
 - It execute once
@@ -131,17 +134,19 @@ wait for 5 sec to perform first health check
 ------------------------------------------------------------------------------------------
 Configmap & secret
 
-Configmap --> not case sensitive
-Secret --> to case sensitive
+- Configmap --> not case sensitive
+- Secret --> to case sensitive
 
 To store secret
 - as a volume
 - image pull secret 
-
+```
 kubectl create secret docker-registry dockerhubsecret --docker-server=docker.io --docker-username=<name> --docker-password=<password> -n <namespace>
-
+```
+```
 imagePullsecrets:
     - name: dockerhubsecret
+```
 ---------------------------------------------------------------------------------------------------------------------------
 Node Affinity:
 requiredDuringSchedulingIgnoredDuringExecution:
@@ -173,22 +178,22 @@ Kubernetes tries to schedule it on a node with at least 1000Mi available.
 If no node has 1000Mi free, scheduling fails with:
 ---------------------------------------------------------------------------------------------------------------------------
 HPA:
-What it does: Scales the number of pods.
-How it works: Based on metrics like CPU, memory, or custom metrics.
+- What it does: Scales the number of pods.
+- How it works: Based on metrics like CPU, memory, or custom metrics.
 
 Vertical Pod Autoscaler (VPA):
-What it does: Adjusts the CPU and memory requests/limits for a pod.
-How it works: Observes pod resource usage over time and recommends or applies updated resources.
-Use case: You want to optimize individual pod resource settings, not scale out.
-Example: If a pod consistently uses 400Mi memory but is allocated 1Gi, VPA may reduce the request to save resources.
+- What it does: Adjusts the CPU and memory requests/limits for a pod.
+- How it works: Observes pod resource usage over time and recommends or applies updated resources.
+- Use case: You want to optimize individual pod resource settings, not scale out.
+- Example: If a pod consistently uses 400Mi memory but is allocated 1Gi, VPA may reduce the request to save resources.
 
-Cluster Autoscaler (for node scaling)
-Scale cluster compute with Karpenter and Cluster Autoscaler
+- Cluster Autoscaler (for node scaling)
+- Scale cluster compute with Karpenter and Cluster Autoscaler
 
 ---------------------------------------------------------------------------------------------------------------------------
 PV & PVC :
 
-Retain means Kubernetes won’t touch the storage after a PVC is deleted — you must clean it up manually.
+- Retain means Kubernetes won’t touch the storage after a PVC is deleted — you must clean it up manually.
 
 Access Mode:
 - ReadWriteOnce : Mounted as read-write by only one node
@@ -196,30 +201,28 @@ Access Mode:
 - ReadWriteMany : Mounted as read-write by multiple nodes
 - ReadWriteOncePod : Mounted as read-write by a single pod on a single node (v1.22+)
 
-Case I : If 90 GB PV ,If we are claiming 100 GB, then PVC will go to the pending state.
-Case 2 : If Pv has RW mode, If pvc has different mode then it will go to the pending state.
+- Case I : If 90 GB PV ,If we are claiming 100 GB, then PVC will go to the pending state.
+- Case 2 : If Pv has RW mode, If pvc has different mode then it will go to the pending state.
 
 Reclaim Policy:
 1. Retain : The PV will remain exist but it will be in the release status & no one pvc can request data from it.
 2. Delete policy : If PVC will be delete as well as pv will be deleted
 3. recycle : PVC will be delete , the PV will be available for other.
 
-Dyanmic volume provisioning create a volume for it (not create pv & pvc)
+- Dyanmic volume provisioning create a volume for it (not create pv & pvc)
 
 ---------------------------------------------------------------------------------------------------------------------------
 RBAC :
-Create a Role >> Assign permission to a role >> assign the role to perticular user or group
-
-cd  /etc/kubernetes/pki/. >> where all certifiates are stored
-
-RBAC : Roll back access control of k8s
+- Create a Role >> Assign permission to a role >> assign the role to perticular user or group
+- cd  /etc/kubernetes/pki/. >> where all certifiates are stored
+- RBAC : Roll back access control of k8s
 
 How to manage access of k8s resources?
 >> We can manage access of k8s resource using RBAC.
 Authentication : Checking the identity of user (IAM)
 Authorization : Checking the permission of user (RBAC)
 
-3 types of user who can access the k8s
+3 types of user who can access the k8s :
 1. developer
 2. application
 3. end user
@@ -232,7 +235,7 @@ Each pod runs as a user (identity) when it interacts with the Kubernetes API. Th
 By default, pods use the default ServiceAccount in their namespace.
 But for fine-grained access control, we create and use custom ServiceAccounts.
 
-Reference doc : https://faun.pub/how-to-integrate-kubernetes-on-aws-eks-with-jenkins-the-devsecops-way-36d72407f302
+- Reference doc : https://faun.pub/how-to-integrate-kubernetes-on-aws-eks-with-jenkins-the-devsecops-way-36d72407f302
 ----------------------------------------------------------------------------------
 Service Discovery:
 Service Discovery in Kubernetes (K8s) refers to the automatic detection of services within a Kubernetes cluster. It allows different components (like pods, deployments, etc.) to communicate with each other without manually managing IP addresses or port numbers.
