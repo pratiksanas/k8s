@@ -7,7 +7,7 @@ We can create a resources using :
 1. Imperative  : using commands
 2. Declarative : using manifest
 
-Difference betn apply & create
+Difference betn apply & create :
 - create : one time create
 - apply : create & apply
 ------------------------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ Repliciation Controller & Replicaset difference
 - Repliciation Controller supports only equality based selecter
 - Replicaset supports equality & set based selector. (match expression's)
 
-When we do any chges in replication controller & replicaset it cant't reflect immediately. We have to restart the pod. Thats why downtime came.
+- When we do any chges in replication controller & replicaset it cant't reflect immediately. We have to restart the pod. Thats why downtime came.
 ------------------------------------------------------------------------------------------
 Deployment:
 Benefits:
