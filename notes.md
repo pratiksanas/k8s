@@ -1,4 +1,4 @@
-Namespace : 
+# Namespace : 
 - It is a virtual cluster within k8s cluster. It's logical group of k8s resource of some project.
 - We can apply security and resource allocation at namespace level.
 - K8s supports both json & yaml formats.
@@ -11,7 +11,7 @@ Difference betn apply & create :
 - create : one time create
 - apply : create & apply
 ------------------------------------------------------------------------------------------------------------
-Pods :
+# Pods :
 What is static pods?
 --> static pod will not have any controller associate with it. Static pod will be managed by kubelet which is running in that node.
 static pods are stored in one directory & kubelets are monitoring this directory.
